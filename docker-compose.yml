@@ -1,0 +1,23 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    env_file:
+      .env
+    depends_on: 
+      - db
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_DATABASE=library
+      - MYSQL_USER=library
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=rootsecret
+    volumes:
+      - db_data:/var/lib/mysql
+volumes: 
+  db_data:
